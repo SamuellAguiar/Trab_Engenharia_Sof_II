@@ -1,4 +1,4 @@
-# **Trabalho Final - Enggenharia de Software II**
+# **Trabalho Final - Engenharia de Software II**
 
 ## *Discente: Samuell Aguiar e Mariana Vieira*
 
