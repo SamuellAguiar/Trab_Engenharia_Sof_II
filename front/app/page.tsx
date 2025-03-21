@@ -74,19 +74,27 @@ export default function HomePage() {
     },
   ]
 
+  // Modificar a função addToCart para garantir que os itens adicionados ao carrinho tenham a propriedade preco
   const addToCart = (equipment) => {
     // Verificar se o equipamento já está no carrinho
     const existingItemIndex = cartItems.findIndex((item) => item.id === equipment.id)
+
+    // Garantir que o item tenha a propriedade preco
+    const itemToAdd = {
+      ...equipment,
+      preco: equipment.dailyPrice || equipment.precoMensal || equipment.precoSemanal || equipment.precoDiario || 0,
+      periodo: "diario",
+    }
 
     let updatedCart
     if (existingItemIndex >= 0) {
       // Se já estiver no carrinho, incrementa a quantidade
       updatedCart = [...cartItems]
-      updatedCart[existingItemIndex].quantidade += 1
+      updatedCart[existingItemIndex].quantidade = (updatedCart[existingItemIndex].quantidade || 1) + 1
       setCartItems(updatedCart)
     } else {
       // Se não estiver no carrinho, adiciona com quantidade 1
-      updatedCart = [...cartItems, { ...equipment, quantidade: 1 }]
+      updatedCart = [...cartItems, { ...itemToAdd, quantidade: 1 }]
       setCartItems(updatedCart)
     }
 

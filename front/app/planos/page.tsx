@@ -273,19 +273,27 @@ export default function PlanosPage() {
     </div>
   )
 
+  // Modificar a função addToCart para garantir que os itens adicionados ao carrinho tenham a propriedade preco
   const addToCart = (plano) => {
     // Verificar se o plano já está no carrinho
     const existingItemIndex = cartItems.findIndex((item) => item.id === plano.id)
+
+    // Garantir que o item tenha a propriedade preco
+    const itemToAdd = {
+      ...plano,
+      preco: plano.preco || 0,
+      periodo: "mensal",
+    }
 
     let updatedCart
     if (existingItemIndex >= 0) {
       // Se já estiver no carrinho, incrementa a quantidade
       updatedCart = [...cartItems]
-      updatedCart[existingItemIndex].quantidade += 1
+      updatedCart[existingItemIndex].quantidade = (updatedCart[existingItemIndex].quantidade || 1) + 1
       setCartItems(updatedCart)
     } else {
       // Se não estiver no carrinho, adiciona com quantidade 1
-      updatedCart = [...cartItems, { ...plano, quantidade: 1 }]
+      updatedCart = [...cartItems, { ...itemToAdd, quantidade: 1 }]
       setCartItems(updatedCart)
     }
 

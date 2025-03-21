@@ -299,19 +299,27 @@ export default function CategoriaPage({ params }: { params: { slug: string } }) 
   }
 
   // Adicionar a função addToCart antes da função filteredEquipamentos
+  // Modificar a função addToCart para garantir que os itens adicionados ao carrinho tenham a propriedade preco
   const addToCart = (equipamento) => {
     // Verificar se o equipamento já está no carrinho
     const existingItemIndex = cartItems.findIndex((item) => item.id === equipamento.id)
+
+    // Garantir que o item tenha a propriedade preco
+    const itemToAdd = {
+      ...equipamento,
+      preco: equipamento.precoDiario || equipamento.dailyPrice || 0,
+      periodo: "diario",
+    }
 
     let updatedCart
     if (existingItemIndex >= 0) {
       // Se já estiver no carrinho, incrementa a quantidade
       updatedCart = [...cartItems]
-      updatedCart[existingItemIndex].quantidade += 1
+      updatedCart[existingItemIndex].quantidade = (updatedCart[existingItemIndex].quantidade || 1) + 1
       setCartItems(updatedCart)
     } else {
       // Se não estiver no carrinho, adiciona com quantidade 1
-      updatedCart = [...cartItems, { ...equipamento, quantidade: 1 }]
+      updatedCart = [...cartItems, { ...itemToAdd, quantidade: 1 }]
       setCartItems(updatedCart)
     }
 
