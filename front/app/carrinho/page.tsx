@@ -61,7 +61,7 @@ export default function CarrinhoPage() {
     window.dispatchEvent(new Event("cartUpdated"))
   }
 
-  const subtotal = cartItems.reduce((sum, item) => sum + item.preco * item.quantidade, 0)
+  const subtotal = cartItems.reduce((sum, item) => sum + (item.preco || 0) * item.quantidade, 0)
   const entrega = subtotal > 300 ? 0 : 50
   const imposto = subtotal * 0.08
   const total = subtotal + entrega + imposto
@@ -134,7 +134,7 @@ export default function CarrinhoPage() {
                             </Select>
                           </div>
                           <p className="text-sm text-muted-foreground md:hidden mt-1">
-                            R${item.preco.toFixed(2)} por {periodoLabel[item.periodo]}
+                            R${(item.preco || 0).toFixed(2)} por {periodoLabel[item.periodo]}
                           </p>
                           <Button
                             variant="ghost"
@@ -148,7 +148,7 @@ export default function CarrinhoPage() {
                         </div>
                       </div>
                       <div className="col-span-2 text-center hidden md:block">
-                        R${item.preco.toFixed(2)} por {periodoLabel[item.periodo]}
+                        R${(item.preco || 0).toFixed(2)} por {periodoLabel[item.periodo]}
                       </div>
                       <div className="col-span-2 flex items-center justify-center">
                         <div className="flex items-center border rounded-md">
@@ -174,7 +174,7 @@ export default function CarrinhoPage() {
                         </div>
                       </div>
                       <div className="col-span-2 text-right flex items-center justify-between md:justify-end">
-                        <span className="font-medium">R${(item.preco * item.quantidade).toFixed(2)}</span>
+                        <span className="font-medium">R${((item.preco || 0)* item.quantidade).toFixed(2)}</span>
                         <Button
                           variant="ghost"
                           size="sm"
