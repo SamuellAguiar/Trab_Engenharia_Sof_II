@@ -18,7 +18,20 @@ export default function CarrinhoPage() {
     const savedCart = localStorage.getItem("fitrent-cart")
     if (savedCart) {
       try {
-        setCartItems(JSON.parse(savedCart))
+        const parsedCart = JSON.parse(savedCart)
+        // Garantir que todos os itens tenham a propriedade preco
+        const validatedCart = parsedCart.map((item) => {
+          // Se não tiver preco, usar dailyPrice, precoMensal, precoSemanal ou precoDiario
+          if (!item.preco) {
+            return {
+              ...item,
+              preco: item.dailyPrice || item.precoMensal || item.precoSemanal || item.precoDiario || 0,
+              periodo: item.periodo || "diario",
+            }
+          }
+          return item
+        })
+        setCartItems(validatedCart)
       } catch (e) {
         console.error("Erro ao carregar carrinho:", e)
       }
@@ -28,7 +41,12 @@ export default function CarrinhoPage() {
   const updateQuantity = (id, newQuantity) => {
     if (newQuantity < 1) return
 
-    const updatedCart = cartItems.map((item) => (item.id === id ? { ...item, quantidade: newQuantity } : item))
+    const updatedCart = cartItems.map((item) => {
+      if (item.id === id) {
+        return { ...item, quantidade: newQuantity }
+      }
+      return item
+    })
     setCartItems(updatedCart)
 
     // Atualizar localStorage
@@ -43,10 +61,18 @@ export default function CarrinhoPage() {
     const priceMap = {
       1: { diario: 29.99, semanal: 149.99, mensal: 299.99 },
       2: { diario: 14.99, semanal: 79.99, mensal: 149.99 },
+      3: { diario: 19.99, semanal: 99.99, mensal: 199.99 },
+      4: { diario: 12.99, semanal: 69.99, mensal: 129.99 },
     }
 
     setCartItems((prev) =>
-      prev.map((item) => (item.id === id ? { ...item, periodo: newPeriod, preco: priceMap[id][newPeriod] } : item)),
+      prev.map((item) => {
+        if (item.id === id) {
+          const newPrice = priceMap[id] ? priceMap[id][newPeriod] : item.preco || 0
+          return { ...item, periodo: newPeriod, preco: newPrice }
+        }
+        return item
+      }),
     )
   }
 
@@ -61,7 +87,11 @@ export default function CarrinhoPage() {
     window.dispatchEvent(new Event("cartUpdated"))
   }
 
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.preco || 0) * item.quantidade, 0)
+  const subtotal = cartItems.reduce((sum, item) => {
+    const price = item.preco || 0
+    const quantity = item.quantidade || 1
+    return sum + price * quantity
+  }, 0)
   const entrega = subtotal > 300 ? 0 : 50
   const imposto = subtotal * 0.08
   const total = subtotal + entrega + imposto
@@ -134,7 +164,7 @@ export default function CarrinhoPage() {
                             </Select>
                           </div>
                           <p className="text-sm text-muted-foreground md:hidden mt-1">
-                            R${(item.preco || 0).toFixed(2)} por {periodoLabel[item.periodo]}
+                            R${item.preco.toFixed(2)} por {periodoLabel[item.periodo]}
                           </p>
                           <Button
                             variant="ghost"
@@ -148,7 +178,7 @@ export default function CarrinhoPage() {
                         </div>
                       </div>
                       <div className="col-span-2 text-center hidden md:block">
-                        R${(item.preco || 0).toFixed(2)} por {periodoLabel[item.periodo]}
+                        R${item.preco.toFixed(2)} por {periodoLabel[item.periodo]}
                       </div>
                       <div className="col-span-2 flex items-center justify-center">
                         <div className="flex items-center border rounded-md">
@@ -174,7 +204,7 @@ export default function CarrinhoPage() {
                         </div>
                       </div>
                       <div className="col-span-2 text-right flex items-center justify-between md:justify-end">
-                        <span className="font-medium">R${((item.preco || 0)* item.quantidade).toFixed(2)}</span>
+                        <span className="font-medium">R${(item.preco * item.quantidade).toFixed(2)}</span>
                         <Button
                           variant="ghost"
                           size="sm"
