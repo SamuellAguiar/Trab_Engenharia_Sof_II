@@ -25,8 +25,10 @@ public class Equipamentos {
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private Long id;
      private String nome;
-     private String preco;
-     private String disponibilidade; 
+     private Double preco; 
+     private Double precoOferta; 
+     private String categoria; 
+     private String imagem; 
 
      @OneToMany(mappedBy = "equipamento", cascade = CascadeType.ALL, orphanRemoval = true)
      private List<Aluguel> alugueis;
