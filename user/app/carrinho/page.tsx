@@ -159,7 +159,7 @@ export default function CarrinhoPage() {
 
   // Calcular valores do carrinho
   const subtotal = cartItems.reduce((sum, item) => {
-    const price = item.precoMensal || 0
+    const price = item.preco || 0
     const quantity = item.quantidade || 1
     return sum + price * quantity
   }, 0)
@@ -230,7 +230,7 @@ export default function CarrinhoPage() {
                             <div>
                               <h3 className="font-medium">{item.nome || "Produto"}</h3>
                               <p className="text-sm text-muted-foreground md:hidden mt-1">
-                                R${item.precoMensal?.toFixed(2)} por {item.periodo || "mês"}
+                                R${item.preco?.toFixed(2)} por {item.periodo || "mês"}
                               </p>
                               <Button
                                 variant="ghost"
@@ -244,7 +244,7 @@ export default function CarrinhoPage() {
                             </div>
                           </div>
                           <div className="col-span-2 text-center hidden md:block">
-                            R${((parseFloat(item.precoMensal) || 0) * (item.quantidade || 1)).toFixed(2)}
+                            R${((parseFloat(item.preco) || 0) * (item.quantidade || 1)).toFixed(2)}
                           </div>
                           <div className="col-span-2 flex items-center justify-center">
                             <div className="flex items-center border rounded-md">
@@ -271,7 +271,7 @@ export default function CarrinhoPage() {
                           </div>
                           <div className="col-span-2 text-right flex items-center justify-between md:justify-end">
                             <span className="font-medium">
-                              R${((parseFloat(item.precoMensal) || 0) * (item.quantidade || 1)).toFixed(2)}
+                              R${((parseFloat(item.preco) || 0) * (item.quantidade || 1)).toFixed(2)}
                             </span>
                             <Button
                               variant="ghost"
