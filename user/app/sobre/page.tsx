@@ -37,7 +37,7 @@ export default function SobrePage() {
           </p>
         </div>
         <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden">
-          <Image src="/placeholder.svg?height=400&width=600" alt="Equipe FitRent" fill className="object-cover" />
+          <Image src="/gym-equipment.jpg?height=400&width=600" alt="Equipe FitRent" fill className="object-cover" />
         </div>
       </div>
 
@@ -108,14 +108,14 @@ export default function SobrePage() {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
-            { nome: "Carlos Silva", cargo: "Fundador & CEO", imagem: "/placeholder.svg?height=300&width=300" },
-            { nome: "Ana Oliveira", cargo: "Diretora de Operações", imagem: "/placeholder.svg?height=300&width=300" },
+            { nome: "Carlos Silva", cargo: "Fundador & CEO", imagem: "/man1.jpg?height=300&width=300" },
+            { nome: "Ana Oliveira", cargo: "Diretora de Operações", imagem: "/mulher1 (2).jpg?height=300&width=300" },
             {
               nome: "Ricardo Santos",
               cargo: "Especialista em Equipamentos",
-              imagem: "/placeholder.svg?height=300&width=300",
+              imagem: "man2.jpg?height=300&width=300",
             },
-            { nome: "Juliana Costa", cargo: "Experiência do Cliente", imagem: "/placeholder.svg?height=300&width=300" },
+            { nome: "Juliana Costa", cargo: "Experiência do Cliente", imagem: "/mulher2.jpg?height=300&width=300" },
           ].map((membro, index) => (
             <div key={index} className="bg-card rounded-lg border overflow-hidden">
               <div className="relative h-64 w-full">
