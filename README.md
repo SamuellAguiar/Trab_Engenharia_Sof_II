@@ -16,7 +16,7 @@ O projeto se concentra no desenvolvimento de um sistema digital para gestão de 
 
 ### As principais funcionalidades do sistema incluem:
 
-* Catálogo de Equipamentos e Planos;
+* Catálogo de Equipamentos e Planos;
 
 * Aluguel individual para personalização da seleção de equipamentos;
 
@@ -36,19 +36,14 @@ O projeto se concentra no desenvolvimento de um sistema digital para gestão de 
 
 ### Cadastro e Login de Usuário:
 
-* Registro com nome, CPF, endereço, telefone e e-mail;
+* Registro com dados do usuário;
 
-* Login para usuários recorrentes;
-
-* Histórico de pedidos e gestão de contratos.
+* Login para usuários;
 
 ### Meios de Pagamento:
 
-* Suporte a múltiplos métodos de pagamento.
+* Opções de pagamento.
 
-### Assinatura Digital de Contrato:
-
-* Geração automática de contratos personalizados com base no pedido.
 
 ## 3. Restrições
 
@@ -89,13 +84,6 @@ O projeto se concentra no desenvolvimento de um sistema digital para gestão de 
 <p align="center">
  <img src="Prototipo/10.png" alt="Login de Usuario" width="300">
  <img src="Prototipo/11.png" alt="Cadastro de Usuario" width="300">
-</p>
-
-5- Página de assinatura do contrato e finalização do aluguel.
-
-<p align="center">
- <img src="Prototipo/9.png" alt="Assinatura de Contrato" width="300">
- <img src="Prototipo/12.png" alt="finalização do Pedido" width="300">
 </p>
 
 
